@@ -21,12 +21,12 @@ start:
 	jae Lower
 	jmp notAlpha; 剩下的情况说明是在Z和a之间的非字母, 这一句没有也行，因为顺序执行到 notAlpha
 	notAlpha: 
-		lea dx, info1 ;和mov dx, offset info1一个效果
+		lea dx, info1 ;获得info1的偏移量，作为输出的数据 
     	mov ah, 09h ;09号功能，打印一个字符串
     	int 21h
 		jmp final
 	Upper:
-		lea dx, info2 ;输出提示信息
+		lea dx, info2
 		mov ah, 09h
 		int 21h
 		add al, 32 ;ascii加32变成小写
