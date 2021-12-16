@@ -1,17 +1,16 @@
 data segment
-    flag db 'flag{', ? , '}$'
+    flag db '\r\n$'
 data ends
 
 code segment
 assume cs:code, ds:data
 start:
-    mov ah, 01h ;输入
+    mov ax, data
+    mov ds, ax
+    mov dx, offset flag
+    mov ah, 9
     int 21h
-    mov flag, al
-    lea dx, flag
-    mov ah, 09h ;输出
-    int 21h
-    mov ah, 4ch ;exit
+    mov ah, 4ch
     int 21h
 code ends
 end start
