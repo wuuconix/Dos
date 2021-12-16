@@ -28,7 +28,6 @@ start:
             loop inner
         pop cx ;弹栈，恢复外层的cx
         inc row ;row自增1，表示行数加1
-
         lea dx, crlf; 输出换行，因为一行已经结束
         mov ah, 09h ;09号中断，输出一个字符串
         int 21h

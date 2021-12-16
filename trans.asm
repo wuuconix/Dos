@@ -22,7 +22,7 @@ start:
 	jmp notAlpha; 剩下的情况说明是在Z和a之间的非字母, 这一句没有也行，因为顺序执行到 notAlpha
 	notAlpha: 
 		lea dx, info1 ;和mov dx, offset info1一个效果
-    	mov ah, 09h ;9号功能，打印一个字符串
+    	mov ah, 09h ;09号功能，打印一个字符串
     	int 21h
 		jmp final
 	Upper:
@@ -31,7 +31,7 @@ start:
 		int 21h
 		add al, 32 ;ascii加32变成小写
 		mov dl, al ;将转化后的ascii码存到dl中用以输出
-		mov ah, 02h ;02号中断，打印一个字符，即letter
+		mov ah, 02h ;02号功能，打印一个字符，即letter
 		int 21h
 		jmp final 
 	Lower:
@@ -40,7 +40,7 @@ start:
 		int 21h
 		sub al, 32 ;ascii减32变成大写
 		mov dl, al ;将转化后的ascii码存到dl中用以输出
-		mov ah, 02h ;02号中断，打印一个字符，即letter
+		mov ah, 02h ;02号功能，打印一个字符，即letter
 		int 21h
 		jmp final ;可以不写，顺序执行
 	final:
