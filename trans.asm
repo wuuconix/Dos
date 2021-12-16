@@ -1,15 +1,15 @@
 data segment
-	letter db ?, '$' ;用来存储转变后的字符
+	letter db ? ;用来存储转变后的字符
 	info1 db 0dh, 0ah, 'not a alpha!$' ;不是字母时的提示性语句
 	info2 db 0dh, 0ah, 'uppdercase alpha! change to $' ;是大写字母时的提示性语句
 	info3 db 0dh, 0ah, 'lowercase alpha! change to $' ;是小写字母时的提示性语句
 data ends
 
-code segment
-assume cs:code, ds:data
+code segment ;代码段
+assume cs:code, ds:data ;伪指令用以关联段寄存器和段名
 start:
-	mov ax, data
-	mov ds, ax
+    mov ax, data ;虽然assume了但是仍然需要手动为ds赋值
+    mov ds, ax
 	mov ah, 01h ;从键盘输入并输出到屏幕
 	int 21h	;经过这一步，输入的字母会存在al寄存里，其值位ascii码值（16进制）
 	cmp al, 65 ;A的ascii码，<A 说明不是字母
@@ -23,27 +23,27 @@ start:
 	jmp notAlpha; 剩下的情况说明是在Z和a之间的非字母, 这一句没有也行，因为顺序执行到 notAlpha
 	notAlpha: 
 		lea dx, info1 ;和mov dx, offset info1一个效果
-    	mov ah,9 ;9号功能，打印一个字符串
+    	mov ah, 09h ;9号功能，打印一个字符串
     	int 21h
 		jmp final
 	Upper:
 		lea dx, info2 ;输出提示信息
-		mov ah, 9
+		mov ah, 09h
 		int 21h
 		add al, 32 ;ascii加32变成小写
 		mov letter, al ;输出字母
-		lea dx, letter
-		mov ah, 9
+		mov dl, letter ;立即数寻址
+		mov ah, 02h
 		int 21h
 		jmp final 
 	Lower:
 		lea dx, info3 ;输出提示信息
-		mov ah, 9
+		mov ah, 09h
 		int 21h
 		sub al, 32; ascii减32变成大写
 		mov letter, al ;输出字母
-		lea dx, letter
-		mov ah, 9
+		mov dl, letter ;立即数寻址
+		mov ah, 02h
 		int 21h
 		jmp final ;可以不写，顺序执行
 	final:
