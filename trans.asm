@@ -1,5 +1,4 @@
 data segment
-	letter db ? ;用来存储转变后的字符
 	info1 db 0dh, 0ah, 'not a alpha!$' ;不是字母时的提示性语句
 	info2 db 0dh, 0ah, 'uppdercase alpha! change to $' ;是大写字母时的提示性语句
 	info3 db 0dh, 0ah, 'lowercase alpha! change to $' ;是小写字母时的提示性语句
@@ -31,19 +30,17 @@ start:
 		mov ah, 09h
 		int 21h
 		add al, 32 ;ascii加32变成小写
-		mov letter, al ;输出字母
-		mov dl, letter ;立即数寻址
-		mov ah, 02h
+		mov dl, al ;将转化后的ascii码存到dl中用以输出
+		mov ah, 02h ;02号中断，打印一个字符，即letter
 		int 21h
 		jmp final 
 	Lower:
 		lea dx, info3 ;输出提示信息
 		mov ah, 09h
 		int 21h
-		sub al, 32; ascii减32变成大写
-		mov letter, al ;输出字母
-		mov dl, letter ;立即数寻址
-		mov ah, 02h
+		sub al, 32 ;ascii减32变成大写
+		mov dl, al ;将转化后的ascii码存到dl中用以输出
+		mov ah, 02h ;02号中断，打印一个字符，即letter
 		int 21h
 		jmp final ;可以不写，顺序执行
 	final:
