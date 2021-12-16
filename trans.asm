@@ -1,4 +1,5 @@
 data segment
+	info0 db 'please input a character:$'
 	info1 db 0dh, 0ah, 'not a alpha!$' ;不是字母时的提示性语句
 	info2 db 0dh, 0ah, 'uppdercase alpha! change to $' ;是大写字母时的提示性语句
 	info3 db 0dh, 0ah, 'lowercase alpha! change to $' ;是小写字母时的提示性语句
@@ -9,6 +10,9 @@ assume cs:code, ds:data ;伪指令用以关联段寄存器和段名
 start:
     mov ax, data ;虽然assume了但是仍然需要手动为ds赋值
     mov ds, ax
+	lea dx, info0 ;获得info0的偏移量，作为输出的数据 
+	mov ah, 09h ;09号功能，打印一个字符串
+	int 21h
 	mov ah, 01h ;从键盘输入并输出到屏幕
 	int 21h	;经过这一步，输入的字母会存在al寄存里，其值位ascii码值（16进制）
 	cmp al, 65 ;A的ascii码，<A 说明不是字母
