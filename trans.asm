@@ -1,8 +1,8 @@
 data segment
-	letter db ?, '$'
-	info1 db 0dh, 0ah, 'not a alpha!$'
-	info2 db 0dh, 0ah, 'uppdercase alpha! change to $'
-	info3 db 0dh, 0ah, 'lowercase alpha! change to $'
+	letter db ?, '$' ;用来存储转变后的字符
+	info1 db 0dh, 0ah, 'not a alpha!$' ;不是字母时的提示性语句
+	info2 db 0dh, 0ah, 'uppdercase alpha! change to $' ;是大写字母时的提示性语句
+	info3 db 0dh, 0ah, 'lowercase alpha! change to $' ;是小写字母时的提示性语句
 data ends
 
 code segment
