@@ -8,10 +8,10 @@ assume cs:code, ds:data
 start:
     mov ax, data
     mov ds, ax
-    mov dx, offset string1 ;获得string变量的偏移量，作为输出的数据  用lea也行
+    lea dx, string1 ;获得string变量的偏移量，作为输出的数据 
     mov ah, 09h ;9号功能，打印一个字符串
-    int 21h ;调用中断
-    mov dx, offset string2
+    int 21h
+    lea dx, string2
     mov ah, 09h
     int 21h
     mov ah, 4ch ;带返回值结束
