@@ -8,7 +8,7 @@ assume cs:code, ds:data
 start:
     mov ax, data
     mov ds, ax
-    lea dx, string1 ;获得string变量的偏移量，作为输出的数据 
+    lea dx, string1 ;获得string1的偏移量，作为输出的数据 
     mov ah, 09h ;9号功能，打印一个字符串
     int 21h
     lea dx, string2
