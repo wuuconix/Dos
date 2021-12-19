@@ -16,16 +16,16 @@ START:
 	CLI
 	POP DS
 	;初始化主片 8259
-	MOV AL, 11H ;00010001,D7~D5无意义，设置为0，D4为标志位，1,D3为0表示上升沿触发，D2无意义，设置0，D1为0直接为0（指导书和书不一样，书上说0表示级联），D0为1表示需要ICW4
-	OUT 20H, AL ;ICW1
-	MOV AL, 08H ;00001000,D7~D3由程序设定，表示中断类型码的高5位内容，D2~D0按照中断请求的编码值自动填入，比如IR7就会填入111
-	OUT 21H, AL ;ICW2
-	MOV AL, 04H ;00000100, 每位表示IRx上有无从片8259A，如果是1表示则有，0则无，这里表示IR2连接从片
-	OUT 21H, AL ;ICW3
-	MOV AL, 01H	;00000001, D7~D5一定为0，D4为零，表示采用正常的完全嵌套方式，D3为0表示采用非缓冲方式，D2为0一定为0（指导书和书上不一样），D1为0表示采用正常中断结束。D0为1表示CPU为8686/8688
-	OUT 21H, AL ;ICW4
-	MOV AL, 6FH ;01101111，0表示允许IRx上的请求，1表示屏蔽IRx上的请求，这里表示允许IR4和IR7的请求，实验中IR4接串口0，IR7接MIR7，即我们的KK1+脉冲
-	OUT 21H, AL ;OCW1
+	MOV AL, 11H 
+	OUT 20H, AL 
+	MOV AL, 08H
+	OUT 21H, AL
+	MOV AL, 04H
+	OUT 21H, AL 
+	MOV AL, 01H	
+	OUT 21H, AL
+	MOV AL, 6FH
+	OUT 21H, AL
 	STI
 	AA1:
 		MOV AX, 0172H ;r
@@ -39,7 +39,7 @@ START:
 		MOV AX, 010DH ;\n
 		INT 10H  
 		
-		MOV CX, 20 ;简单设置一个loop循环，循环调用DELAY，使得输出间隔一段时间
+		MOV CX, 20
 	S:
 		CALL DELAY
 		LOOP S

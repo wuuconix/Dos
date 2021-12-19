@@ -8,7 +8,7 @@ START:  MOV DX, 0606H ;0646H->0606H
         OUT DX, AL
 AA1:    MOV DX, 0600H ;CPU通过8255读入开关信号
         IN  AL, DX
-      	ROR AL, 1 ;将开关对应的信号右移4
+      	ROR AL, 4 ;将开关对应的信号右移4
         CALL DELAY
         MOV DX, 0602H ;CPU通过8255向LED显示单元发送数据
         OUT DX, AL
